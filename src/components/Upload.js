@@ -70,8 +70,8 @@ function Upload() {
   //   const [username, setUsername] = useState();
   //   const [password, setPassword] = useState();
 
-  //   const [emailError, setEmailError] = useState();
-  //   const [usernameError, setUsernameError] = useState();
+  const [imageError, setImageError] = useState();
+  const [descriptionError, setDescriptionError] = useState();
 
   const handleImage = (event) => {
     const finalImage = event.target.files[0];
@@ -84,32 +84,39 @@ function Upload() {
     setDescription(event.target.value);
   };
 
-  //   const handleUsername = (event) => {
-  //     setUsername(event.target.value);
-  //   };
-
-  //   const handlePassword = (event) => {
-  //     setPassword(event.target.value);
-  //   };
-
-  //   const [values, setValues] = React.useState({
-  //     showPassword: false,
-  //   });
-
-  //   const handleClickShowPassword = () => {
-  //     setValues({ ...values, showPassword: !values.showPassword });
-  //   };
-
-  //   const handleMouseDownPassword = (event) => {
-  //     event.preventDefault();
-  //   };
+  const [imageURL, setImageURL] = useState("");
 
   const onSubmit = () => {
-    const data = new FormData();
-    data.append("file", image);
-    axios.post("http://localhost:3001/uploadImage", data).then((response) => {
-      console.log(response);
-    });
+    setImageError(null);
+    if (description === null) {
+      setDescriptionError("Description required");
+    } else {
+      const data = new FormData();
+      data.append("file", image);
+      axios.post("http://localhost:3001/uploadImage", data).then((response) => {
+        console.log(response.data.filename);
+        if (response.data === null || response.data === "") {
+          setImageError("Please select an Image");
+        } else {
+          setImageURL(response.data.filename);
+          axios
+            .post(
+              "http://localhost:3001/posts",
+              {
+                image: response.data.filename,
+                postText: description,
+              },
+              {
+                headers: { accessToken: localStorage.getItem("accessToken") },
+              }
+            )
+            .then((response) => {
+              console.log(response);
+            });
+        }
+      });
+    }
+
     // setEmailError(null);
     // setUsernameError(null);
     // axios
@@ -140,7 +147,7 @@ function Upload() {
   return (
     <div className="register_page">
       <div>
-        <div style={{ width: "20vw" }}>
+        <div style={{ width: "50vw" }}>
           <Card
             className={classes.root}
             variant="outlined"
@@ -152,12 +159,14 @@ function Upload() {
               </Typography>
               <Typography variant="h5" component="h2">
                 <div>
-                  {preview && <img src={preview} />}
+                  {preview && <img className="preview_image" src={preview} />}
                   <br />
                   <label for="file-upload" className="file-upload">
                     Choose Image
                   </label>
-                  <br />
+                  <p style={{ color: "red", fontSize: "14px" }}>
+                    {imageError && imageError}
+                  </p>
                   <input
                     id="file-upload"
                     className="file_upload_button"
@@ -169,6 +178,7 @@ function Upload() {
                   <br />
 
                   <TextField
+                    error={descriptionError}
                     id="outlined-textarea"
                     label="Description"
                     variant="outlined"
@@ -176,6 +186,7 @@ function Upload() {
                     multiline
                     rows={4}
                     onChange={handleDescription}
+                    helperText={descriptionError ? `${descriptionError}` : ""}
                   />
                   {/* <TextField
                     error={usernameError}
@@ -233,6 +244,7 @@ function Upload() {
               <Button
                 variant="contained"
                 onClick={onSubmit}
+                disabled={!description}
                 style={{
                   backgroundColor: "#0095f6",
                   color: "white",

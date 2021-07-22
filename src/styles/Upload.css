@@ -14,3 +14,11 @@ input[type="file"] {
 .file-upload:hover {
   background-color: rgb(240, 239, 239);
 }
+
+.preview_image {
+  max-width: 45vw;
+}
+
+button:disabled {
+  color: white;
+}
