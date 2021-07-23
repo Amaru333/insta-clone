@@ -4,11 +4,32 @@
   width: 95%;
   background-color: white;
   margin-bottom: 40px;
+  word-wrap: wrap;
+  word-break: break-all;
   /* margin-top: 50px; */
+}
+
+.post_username {
+  font-weight: 500;
+  padding-left: 20px;
 }
 
 .post_image_home {
   max-width: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.post_contents {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.post_description {
+  max-width: 100%;
+  vertical-align: auto;
+  padding-left: 10px;
 }
