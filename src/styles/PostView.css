@@ -11,13 +11,23 @@
 
 .post_username {
   font-weight: 500;
-  padding-left: 20px;
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.post_username:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.post_image_home_container {
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .post_image_home {
   max-width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .post_contents {
@@ -32,4 +42,11 @@
   max-width: 100%;
   vertical-align: auto;
   padding-left: 10px;
+}
+
+.profile_image {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  margin-left: 10px;
 }

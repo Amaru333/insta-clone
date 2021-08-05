@@ -18,6 +18,7 @@ import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HomeIcon from "@material-ui/icons/Home";
 import MessageOutlinedIcon from "@material-ui/icons/MessageOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import PostAddIcon from "@material-ui/icons/PostAdd";
 
 const useStyles = makeStyles({
   root: {
@@ -87,6 +88,11 @@ function Navbar() {
               </div>
               <div className="navbar_icon">
                 <FavoriteBorderOutlinedIcon />
+              </div>
+              <div className="navbar_icon">
+                <a href="/upload">
+                  <PostAddIcon className="navbar_icon_home" />
+                </a>
               </div>
             </div>
           </div>

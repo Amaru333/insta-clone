@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Upload from "./components/Upload";
+import Profile from "./components/Profile";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -72,6 +73,10 @@ function App() {
             <Route path="/upload" exact>
               <Navbar />
               <Upload />
+            </Route>
+            <Route path="/:id">
+              <Navbar />
+              <Profile />
             </Route>
           </Switch>
         </Router>
